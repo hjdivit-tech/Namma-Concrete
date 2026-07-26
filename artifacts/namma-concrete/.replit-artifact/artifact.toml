@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/"
+title = "Namma Concrete"
+version = "1.0.0"
+id = "artifacts/namma-concrete"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22949
+
+[services.development]
+run = "pnpm --filter @workspace/namma-concrete run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/namma-concrete", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/namma-concrete/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22949"
+BASE_PATH = "/"

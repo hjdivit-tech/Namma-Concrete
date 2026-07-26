@@ -1,0 +1,108 @@
+Build a responsive marketing + lead-generation website for "Namma Concrete" 
+— a ready-mix concrete (RMC) supply company in Mysore, Karnataka, a Scorpions 
+Group venture. Use plain HTML, CSS, and vanilla JavaScript only — no 
+frameworks, no build tools. Static frontend with a lightweight form-submission 
+backend (no admin panel in this version).
+
+TECH STACK
+- HTML5, CSS3, vanilla JavaScript
+- Animations: CSS transitions/keyframes + JS scroll listeners (Intersection 
+  Observer API) for scroll-triggered animations — no animation libraries required
+- Form handling/notifications: forms submit to a simple backend endpoint 
+  (e.g. Formspree, EmailJS, or a basic serverless function) that sends an 
+  email and/or WhatsApp notification to the Namma Concrete team on new 
+  submission. Do NOT build a database or admin login — submissions just 
+  need to notify the team directly (email/WhatsApp), nothing needs to be 
+  stored/viewed on-site.
+- Fully responsive: desktop, tablet, mobile (use CSS Grid/Flexbox + media queries)
+
+PAGES / SECTIONS (single-page site with anchor navigation, unless specified otherwise)
+
+1. Hero / Landing section
+   - Premium scroll-triggered animations reflecting the concrete-mixing and 
+     delivery process (subtle fade/slide/parallax on scroll, not gimmicky)
+   - Brand intro: Namma Concrete overview, positioned as a Scorpions Group venture
+   - Sticky nav bar with anchor links (Home, About, Products, Order, Contact) 
+     and a persistent "Order Concrete" CTA button
+
+2. About & Quality Assurance section
+   - Company background, plant/quality-control information, certifications 
+     (use placeholder text — client will provide final copy)
+
+3. Product & Grade Catalog section
+   - Grid of concrete grade cards (M10 through M50, PCC/RMC mixes)
+   - Each card: grade name, short description, recommended use-case 
+     (e.g. "M20 – suitable for residential slabs and footings")
+
+4. Projects / Clients Showcase
+   - Simple image gallery/grid of completed supplies or partner projects 
+     (placeholder images for now)
+
+5. Concrete Ordering section (modal popup, triggered by "Order Concrete" 
+   CTA button — build with plain JS show/hide, no libraries)
+   Fields:
+   - Concrete grade (select dropdown, options pulled from the RATE CONFIG below)
+   - Quantity (number input, cubic meters or client's preferred unit)
+   - Delivery location/address (text input)
+   - Preferred delivery date (date input)
+   - Customer name, phone, email
+   - Live ESTIMATED PRICE display: as user selects grade + enters quantity, 
+     calculate estimatedPrice = rate(grade) * quantity in real time using 
+     vanilla JS and the hardcoded RATE CONFIG. Display clearly labeled as 
+     "Estimated Price — final quote confirmed by our team" (never present 
+     as a firm/binding price)
+   - Submit button: on submit, send form data to the notification endpoint 
+     (see TECH STACK above) and show a clear on-page success message/confirmation 
+     — do not store or display submissions anywhere on the site
+
+6. Quote / Callback Request form (separate, simpler form section on the page)
+   - Name, phone, brief requirement text area
+   - No price calculation — submits and notifies the team the same way as above
+
+7. Contact & Location section
+   - Click-to-call link, WhatsApp click-to-chat link (wa.me link), 
+     embedded Google Map (iframe embed) of plant/office location
+   - Footer with contact details, social links if any
+
+RATE CONFIG (hardcoded — no admin panel, no database)
+- Put all pricing in one clearly commented JS file/object at the top of 
+  the main JS file or a separate rates.js, e.g.:
+
+  // PRICING: Edit values below and redeploy to update rates. 
+  // No admin panel — rates are hardcoded in this file only.
+  const CONCRETE_RATES = {
+    "M10": 4200,
+    "M15": 4500,
+    "M20": 4900,
+    "M25": 5300,
+    "M30": 5700,
+    // add remaining grades as provided by client
+  }; // ₹ per cubic meter
+
+- If delivery distance affects pricing, keep it as a separate flat 
+  surcharge constant or simple if/else tier — confirm with client whether 
+  this applies before building it; don't assume
+
+DESIGN NOTES
+- Premium, modern, brand-focused — avoid generic template feel
+- Motion design should evoke concrete mixing/pouring/delivery, used tastefully
+- Color palette/logo: [insert brand guidelines here — request from client]
+- Optimize for fast load: compress images, minimal external dependencies, 
+  mobile-first since many customers will browse on-site via phone
+
+OUT OF SCOPE (do not build unless separately confirmed)
+- Admin panel of any kind
+- Database/order storage or order-status tracking
+- Live payment gateway
+- Admin-editable pricing UI
+- User accounts/login for customers
+- Multi-language support
+
+FILE STRUCTURE
+- index.html, styles.css, script.js (or split into logical files: 
+  rates.js for pricing, main.js for interactions/animations)
+- Comments throughout script.js marking where scroll animations, form 
+  handling, and price calculation logic live
+- No inline styles/scripts — keep CSS and JS in separate files
+- Add a short comment block at the top of rates.js explaining how to 
+  update prices (edit + redeploy, no code changes needed elsewhere)
