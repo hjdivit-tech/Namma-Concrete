@@ -3,29 +3,18 @@
  * A Scorpions Group Venture
  */
 
-// Concrete Rates configuration (₹ per m³)
-const CONCRETE_RATES = {
-  "M10": 4200,
-  "M15": 4500,
-  "M20": 4900,
-  "M25": 5300,
-  "M30": 5700,
-  "M35": 6100,
-  "M40": 6500,
-  "M45": 6900,
-  "M50": 7300,
-};
+// Concrete Grades list (M5 to M40)
+const CONCRETE_GRADES = ["M5", "M10", "M15", "M20", "M25", "M30", "M35", "M40"];
 
 const CONCRETE_DETAILS = {
+  "M5": { desc: "Low-strength lean concrete mix", useCase: "Levelling courses, foundation bedding, non-structural base layer" },
   "M10": { desc: "Basic non-structural mix", useCase: "PCC works, blinding concrete, levelling courses" },
   "M15": { desc: "Light-duty fill concrete", useCase: "Plain cement concrete, non-structural fills" },
   "M20": { desc: "Standard structural mix", useCase: "Residential slabs, footings, columns (most popular)" },
   "M25": { desc: "Enhanced structural mix", useCase: "Commercial structures, beams, foundations" },
   "M30": { desc: "Heavy-duty load bearing", useCase: "High-load beams, bridges, industrial floors" },
-  "M35": { desc: "High-strength specialized", useCase: "Pre-stressed concrete, heavy infrastructure" },
+  "M35": { desc: "High-strength specialized mix", useCase: "Pre-stressed concrete, heavy infrastructure" },
   "M40": { desc: "Advanced structural grade", useCase: "High-strength columns, elevated structures" },
-  "M45": { desc: "Premium specialized mix", useCase: "Special structural applications" },
-  "M50": { desc: "Ultra-high performance", useCase: "High-performance concrete, specialized projects" },
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -66,8 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const catalogGrid = document.getElementById("catalog-grid");
   if (catalogGrid) {
     catalogGrid.innerHTML = "";
-    Object.keys(CONCRETE_RATES).forEach(grade => {
-      const rate = CONCRETE_RATES[grade];
+    CONCRETE_GRADES.forEach(grade => {
       const details = CONCRETE_DETAILS[grade] || { desc: "Specialized concrete mix", useCase: "Structural applications" };
       const isPopular = grade === "M20" || grade === "M25";
 
@@ -76,10 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
           ${isPopular ? '<div class="popular-badge">Most Popular</div>' : ''}
           <div class="grade-card-header">
             <h3 class="grade-title">${grade}</h3>
-            <div class="text-right">
-              <span class="grade-price">₹${rate.toLocaleString('en-IN')}</span>
-              <span class="grade-unit">per m³</span>
-            </div>
           </div>
           <div class="grade-body">
             <p class="grade-desc">${details.desc}</p>
@@ -95,26 +79,45 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
       catalogGrid.insertAdjacentHTML("beforeend", cardHTML);
     });
+
+    // Design Mix special card
+    const designMixCard = `
+      <div class="grade-card design-mix-card">
+        <div class="design-mix-badge">Custom</div>
+        <div class="grade-card-header">
+          <h3 class="grade-title design-mix-title">Design Mix</h3>
+        </div>
+        <div class="grade-body">
+          <p class="grade-desc">Engineer your own concrete formulation</p>
+          <p class="grade-usecase">
+            <strong>Ideal for:</strong>
+            Specialized structural projects, research, and performance-critical applications requiring custom mix proportions.
+          </p>
+        </div>
+        <button class="btn btn-catalog btn-design-mix open-design-mix-modal">
+          Configure Mix
+        </button>
+      </div>
+    `;
+    catalogGrid.insertAdjacentHTML("beforeend", designMixCard);
   }
 
   // 4. Populate Grade Select options in Order Modal
   const orderGradeSelect = document.getElementById("order-grade");
   if (orderGradeSelect) {
     orderGradeSelect.innerHTML = "";
-    Object.entries(CONCRETE_RATES).forEach(([grade, rate]) => {
+    CONCRETE_GRADES.forEach(grade => {
       const option = document.createElement("option");
       option.value = grade;
-      option.textContent = `${grade} - ₹${rate.toLocaleString('en-IN')}/m³`;
+      option.textContent = grade;
       orderGradeSelect.appendChild(option);
     });
   }
 
-  // 5. Order Modal Logic & Live Price Estimate
+  // 5. Order Modal Logic
   const modal = document.getElementById("order-modal");
   const closeModalBtn = document.getElementById("close-modal");
   const orderForm = document.getElementById("order-form");
-  const orderQtyInput = document.getElementById("order-qty");
-  const estimatePriceEl = document.getElementById("estimate-price");
   const deliveryDateInput = document.getElementById("delivery-date");
   const modalSuccessScreen = document.getElementById("modal-success-screen");
   const closeSuccessBtn = document.getElementById("close-success-btn");
@@ -125,25 +128,10 @@ document.addEventListener("DOMContentLoaded", () => {
     deliveryDateInput.min = today;
   }
 
-  function calculateEstimate() {
-    const selectedGrade = orderGradeSelect ? orderGradeSelect.value : "M20";
-    const qty = orderQtyInput ? parseFloat(orderQtyInput.value) || 0 : 0;
-    const unitPrice = CONCRETE_RATES[selectedGrade] || 0;
-    const totalPrice = qty > 0 ? qty * unitPrice : 0;
-    
-    if (estimatePriceEl) {
-      estimatePriceEl.textContent = `₹${totalPrice.toLocaleString('en-IN')}`;
-    }
-  }
-
-  if (orderGradeSelect) orderGradeSelect.addEventListener("change", calculateEstimate);
-  if (orderQtyInput) orderQtyInput.addEventListener("input", calculateEstimate);
-
   function openModal(presetGrade = null) {
     if (presetGrade && orderGradeSelect) {
       orderGradeSelect.value = presetGrade;
     }
-    calculateEstimate();
     if (modal) {
       modal.classList.remove("hidden");
       document.body.style.overflow = "hidden";
@@ -195,7 +183,61 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 6. Contact Form Submission Handling
+  // 6. Design Mix Modal Logic
+  const designMixModal = document.getElementById("design-mix-modal");
+  const closeDesignMixBtn = document.getElementById("close-design-mix-modal");
+  const designMixForm = document.getElementById("design-mix-form");
+  const designMixSuccess = document.getElementById("design-mix-success");
+  const closeDesignMixSuccess = document.getElementById("close-design-mix-success");
+
+  function openDesignMixModal() {
+    if (designMixModal) {
+      designMixModal.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+    }
+  }
+
+  function closeDesignMixModal() {
+    if (designMixModal) {
+      designMixModal.classList.add("hidden");
+      document.body.style.overflow = "auto";
+      if (designMixSuccess) designMixSuccess.classList.add("hidden");
+      if (designMixForm) {
+        designMixForm.reset();
+        designMixForm.classList.remove("hidden");
+      }
+    }
+  }
+
+  document.addEventListener("click", (e) => {
+    if (e.target.closest(".open-design-mix-modal")) {
+      e.preventDefault();
+      openDesignMixModal();
+    }
+  });
+
+  if (closeDesignMixBtn) closeDesignMixBtn.addEventListener("click", closeDesignMixModal);
+  if (designMixModal) {
+    designMixModal.addEventListener("click", (e) => {
+      if (e.target === designMixModal) closeDesignMixModal();
+    });
+  }
+  if (closeDesignMixSuccess) closeDesignMixSuccess.addEventListener("click", closeDesignMixModal);
+
+  if (designMixForm) {
+    designMixForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const submitBtn = document.getElementById("submit-design-mix-btn");
+      if (submitBtn) submitBtn.disabled = true;
+      setTimeout(() => {
+        designMixForm.classList.add("hidden");
+        if (designMixSuccess) designMixSuccess.classList.remove("hidden");
+        if (submitBtn) submitBtn.disabled = false;
+      }, 600);
+    });
+  }
+
+  // 7. Contact Form Submission Handling
   const contactForm = document.getElementById("contact-form");
   const contactSuccess = document.getElementById("contact-success");
   const resetContactBtn = document.getElementById("reset-contact-form");
