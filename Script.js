@@ -280,4 +280,27 @@ document.addEventListener("DOMContentLoaded", () => {
   if (yearEl) {
     yearEl.textContent = new Date().getFullYear();
   }
+
+  // 9. FAQ Accordion Logic
+  const faqQuestions = document.querySelectorAll('.faq-question');
+  faqQuestions.forEach(question => {
+    question.addEventListener('click', () => {
+      const answer = question.nextElementSibling;
+      const isActive = question.classList.contains('active');
+
+      // Close all other FAQs
+      document.querySelectorAll('.faq-question').forEach(q => {
+        q.classList.remove('active');
+        if (q.nextElementSibling) {
+          q.nextElementSibling.style.maxHeight = null;
+        }
+      });
+
+      // If clicked wasn't active, open it
+      if (!isActive) {
+        question.classList.add('active');
+        answer.style.maxHeight = answer.scrollHeight + "px";
+      }
+    });
+  });
 });
