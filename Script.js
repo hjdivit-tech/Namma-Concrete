@@ -116,6 +116,20 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Toggle More Comparison Points on mobile (Know More)
+  const toggleCompMoreBtn = document.getElementById("toggle-comp-more-btn");
+  const compMoreText = document.getElementById("comp-more-text");
+  const compGrid = document.querySelector(".comparison-grid");
+  if (toggleCompMoreBtn && compGrid) {
+    toggleCompMoreBtn.addEventListener("click", () => {
+      compGrid.classList.toggle("expanded");
+      const isExpanded = compGrid.classList.contains("expanded");
+      if (compMoreText) {
+        compMoreText.textContent = isExpanded ? "Show Less" : "Know More";
+      }
+    });
+  }
+
   // 4. Populate Grade Select options in Order Modal
   const orderGradeSelect = document.getElementById("order-grade");
   if (orderGradeSelect) {
@@ -317,4 +331,66 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+
+  // 10. Policy Modal Logic (Terms & Conditions / Privacy Policy)
+  const policyModal = document.getElementById("policy-modal");
+  const openTermsBtn = document.getElementById("open-terms-modal");
+  const openPrivacyBtn = document.getElementById("open-privacy-modal");
+  const closePolicyBtn = document.getElementById("close-policy-modal");
+  const closePolicyFooterBtn = document.getElementById("close-policy-btn");
+
+  const tabTermsBtn = document.getElementById("tab-terms-btn");
+  const tabPrivacyBtn = document.getElementById("tab-privacy-btn");
+  const termsTabContent = document.getElementById("terms-tab-content");
+  const privacyTabContent = document.getElementById("privacy-tab-content");
+
+  function showTermsTab() {
+    if (tabTermsBtn && tabPrivacyBtn && termsTabContent && privacyTabContent) {
+      tabTermsBtn.classList.add("active");
+      tabPrivacyBtn.classList.remove("active");
+      termsTabContent.classList.add("active");
+      privacyTabContent.classList.remove("active");
+    }
+  }
+
+  function showPrivacyTab() {
+    if (tabTermsBtn && tabPrivacyBtn && termsTabContent && privacyTabContent) {
+      tabPrivacyBtn.classList.add("active");
+      tabTermsBtn.classList.remove("active");
+      privacyTabContent.classList.add("active");
+      termsTabContent.classList.remove("active");
+    }
+  }
+
+  if (openTermsBtn && policyModal) {
+    openTermsBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      showTermsTab();
+      policyModal.classList.remove("hidden");
+    });
+  }
+
+  if (openPrivacyBtn && policyModal) {
+    openPrivacyBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      showPrivacyTab();
+      policyModal.classList.remove("hidden");
+    });
+  }
+
+  if (tabTermsBtn) tabTermsBtn.addEventListener("click", showTermsTab);
+  if (tabPrivacyBtn) tabPrivacyBtn.addEventListener("click", showPrivacyTab);
+
+  const closePolicy = () => {
+    if (policyModal) policyModal.classList.add("hidden");
+  };
+
+  if (closePolicyBtn) closePolicyBtn.addEventListener("click", closePolicy);
+  if (closePolicyFooterBtn) closePolicyFooterBtn.addEventListener("click", closePolicy);
+
+  if (policyModal) {
+    policyModal.addEventListener("click", (e) => {
+      if (e.target === policyModal) closePolicy();
+    });
+  }
 });

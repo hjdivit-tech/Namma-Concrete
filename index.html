@@ -115,7 +115,7 @@
 
         <div class="comparison-grid">
           <!-- Point 1 -->
-          <div class="comparison-card">
+          <div class="comparison-card comp-card-1 comp-card-priority">
             <div class="comparison-header">
               <div class="comparison-icon"><i class="fa-solid fa-bullseye"></i></div>
               <h3 class="comparison-metric">1. Batching Precision & Quality</h3>
@@ -133,7 +133,7 @@
           </div>
 
           <!-- Point 2 -->
-          <div class="comparison-card">
+          <div class="comparison-card comp-card-2 comp-card-priority">
             <div class="comparison-header">
               <div class="comparison-icon"><i class="fa-solid fa-bolt"></i></div>
               <h3 class="comparison-metric">2. Speed & Pour Efficiency</h3>
@@ -151,7 +151,7 @@
           </div>
 
           <!-- Point 3 -->
-          <div class="comparison-card">
+          <div class="comparison-card comp-card-3 comp-card-secondary">
             <div class="comparison-header">
               <div class="comparison-icon"><i class="fa-solid fa-shield-halved"></i></div>
               <h3 class="comparison-metric">3. Durability & Compressive Strength</h3>
@@ -169,7 +169,7 @@
           </div>
 
           <!-- Point 4 -->
-          <div class="comparison-card">
+          <div class="comparison-card comp-card-4 comp-card-secondary">
             <div class="comparison-header">
               <div class="comparison-icon"><i class="fa-solid fa-warehouse"></i></div>
               <h3 class="comparison-metric">4. Site Space & Cleanliness</h3>
@@ -187,7 +187,7 @@
           </div>
 
           <!-- Point 5 -->
-          <div class="comparison-card">
+          <div class="comparison-card comp-card-5 comp-card-secondary">
             <div class="comparison-header">
               <div class="comparison-icon"><i class="fa-solid fa-users-gear"></i></div>
               <h3 class="comparison-metric">5. Labor Efficiency & Safety</h3>
@@ -205,7 +205,7 @@
           </div>
 
           <!-- Point 6 -->
-          <div class="comparison-card">
+          <div class="comparison-card comp-card-6 comp-card-priority">
             <div class="comparison-header">
               <div class="comparison-icon"><i class="fa-solid fa-coins"></i></div>
               <h3 class="comparison-metric">6. Material Wastage & Cost Control</h3>
@@ -223,7 +223,7 @@
           </div>
 
           <!-- Point 7 -->
-          <div class="comparison-card">
+          <div class="comparison-card comp-card-7 comp-card-secondary">
             <div class="comparison-header">
               <div class="comparison-icon"><i class="fa-solid fa-leaf"></i></div>
               <h3 class="comparison-metric">7. Environmental Impact</h3>
@@ -239,6 +239,31 @@
               </div>
             </div>
           </div>
+
+          <!-- Point 8 -->
+          <div class="comparison-card comp-card-8 comp-card-secondary">
+            <div class="comparison-header">
+              <div class="comparison-icon"><i class="fa-solid fa-file-contract"></i></div>
+              <h3 class="comparison-metric">8. Testing & Quality Certification</h3>
+            </div>
+            <div class="comparison-body">
+              <div class="comp-box rmc-box">
+                <span class="comp-tag tag-rmc"><i class="fa-solid fa-circle-check"></i> RMC (Namma Concrete)</span>
+                <p>Computerised batch dockets, slump verification, and certified 7 & 28-day cube test reports for structural compliance.</p>
+              </div>
+              <div class="comp-box conv-box">
+                <span class="comp-tag tag-conv"><i class="fa-solid fa-circle-xmark"></i> Conventional Site-Mix</span>
+                <p>No batching records, zero lab test reports, and unverified water-cement ratios relies purely on visual guesswork.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="comp-more-container" id="comp-more-container">
+          <button class="btn btn-more-comp" id="toggle-comp-more-btn">
+            <span id="comp-more-text">Know More</span>
+            <i class="fa-solid fa-chevron-down" id="comp-more-icon"></i>
+          </button>
         </div>
       </div>
     </section>
@@ -465,12 +490,94 @@
       </div>
       <div class="footer-bottom">
         <div class="footer-legal">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
+          <a href="#" id="open-privacy-modal">Privacy Policy</a>
+          <a href="#" id="open-terms-modal">Terms of Service</a>
         </div>
       </div>
     </div>
   </footer>
+
+  <!-- Policy Modal (Terms & Conditions & Privacy Policy) -->
+  <div class="modal-overlay hidden" id="policy-modal">
+    <div class="modal-card policy-modal-card">
+      <div class="modal-header">
+        <div class="policy-tab-buttons">
+          <button class="policy-tab-btn active" id="tab-terms-btn">Terms & Conditions</button>
+          <button class="policy-tab-btn" id="tab-privacy-btn">Privacy Policy</button>
+        </div>
+        <button class="modal-close" id="close-policy-modal" aria-label="Close modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="modal-body policy-modal-body">
+        <!-- Terms & Conditions Content -->
+        <div class="policy-tab-content active" id="terms-tab-content">
+          <h3 class="policy-title">Terms & Conditions - Ready-Mix Concrete (RMC)</h3>
+          <p class="policy-updated">Last Updated: August 2026</p>
+          
+          <div class="policy-text-block">
+            <h4>1. Quotations & Order Acceptance</h4>
+            <p>All Ready-Mix Concrete (RMC) orders placed with Namma Concrete are subject to batching plant capacity, raw material availability, and final delivery schedule confirmation. Volume calculations in cubic meters (m³) are based on customer specifications. Any variation on site during pouring will be charged accordingly.</p>
+
+            <h4>2. Site Access & Unloading Facilities</h4>
+            <p>The purchaser must ensure a safe, unobstructed, and sturdy access route for transit mixers (up to 30 tonnes gross weight) and concrete boom pumps from the main road to the discharge point. Namma Concrete is not responsible for site road damage or mixer entrapment due to inadequate site preparation. Demurrage charges may apply if discharge exceeds 45 minutes per transit mixer.</p>
+
+            <h4>3. Quality Assurance & Standards (IS 456 / IS 4926)</h4>
+            <p>Our concrete is batched using computerized automated controls compliant with Indian Standard specifications (IS 456 & IS 4926). Any addition of water, site-mixed cement, or unauthorized admixtures by site personnel without written authorization from our quality engineer voids all slump and compressive strength warranties.</p>
+
+            <h4>4. Sampling, Testing & Cube Strength</h4>
+            <p>Concrete cube specimens sampled at the transit mixer discharge point in the presence of site representatives will serve as official test samples. 7-day and 28-day compressive strength reports generated by Namma Concrete certified laboratory are final. Joint sampling procedures must follow IS 1199 protocols.</p>
+
+            <h4>5. Payment Terms & Billing</h4>
+            <p>Unless credit terms have been pre-approved in writing, full payment must be settled prior to truck dispatch. Payments are non-refundable once batching has commenced. Applicable GST and transportation tariffs are itemized on official tax invoices.</p>
+
+            <h4>6. Delivery Schedules & Force Majeure</h4>
+            <p>Namma Concrete will make every effort to maintain agreed delivery time slots. However, we are not liable for delays caused by traffic congestion, adverse weather, road blockades, power grid disruptions, or unforeseen mechanical failures beyond reasonable control.</p>
+
+            <h4>7. Limitation of Liability</h4>
+            <p>Our liability is strictly limited to replacing non-conforming batch volumes verified prior to setting. Namma Concrete is not liable for indirect, incidental, or consequential structural damages resulting from improper placement, vibration, curing, or site formwork failures.</p>
+          </div>
+        </div>
+
+        <!-- Privacy Policy Content -->
+        <div class="policy-tab-content" id="privacy-tab-content">
+          <h3 class="policy-title">Privacy Policy</h3>
+          <p class="policy-updated">Last Updated: August 2026</p>
+          
+          <div class="policy-text-block">
+            <h4>1. Information We Collect</h4>
+            <p>Namma Concrete collects business and personal information necessary to fulfill concrete orders and inquiries. This includes your Full Name, Company Name, Contact Number, Email Address, Site Delivery Address, GST Number, and Billing Details submitted via our website forms or direct communications.</p>
+
+            <h4>2. How We Use Your Information</h4>
+            <p>We use collected data solely for legitimate business operations:</p>
+            <ul>
+              <li>Dispatching transit mixers and scheduling delivery logistics to your site.</li>
+              <li>Generating tax invoices, receipts, and order confirmations.</li>
+              <li>Sending order status updates, slump verification reports, and customer support.</li>
+              <li>Improving our batching operations, route planning, and website performance.</li>
+            </ul>
+
+            <h4>3. Data Security & Storage</h4>
+            <p>We employ robust administrative, technical, and physical security measures to safeguard your personal data against unauthorized access, loss, or alteration. Financial transactions and contact records are handled over secure encrypted channels.</p>
+
+            <h4>4. Information Sharing & Disclosure</h4>
+            <p>Namma Concrete does not sell, rent, or trade your personal data to third parties. Information is shared only with verified logistical partners (such as pump operators or haulage contractors) solely for executing site deliveries, or when required by Indian law and statutory regulatory authorities.</p>
+
+            <h4>5. Cookies & Technical Data</h4>
+            <p>Our website may use essential cookies to optimize navigation, remember user preferences, and analyze anonymized site traffic. You can disable non-essential cookies via your browser settings at any time.</p>
+
+            <h4>6. Your Data Rights & Contact</h4>
+            <p>You have the right to access, update, or request the deletion of your personal contact records stored with us. For privacy-related inquiries, please contact our privacy compliance officer at support@nammaconcrete.com or via our official helpline.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="close-policy-btn">Close</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Order Modal -->
   <div class="modal-overlay hidden" id="order-modal">
