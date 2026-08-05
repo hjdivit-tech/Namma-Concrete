@@ -58,9 +58,10 @@ document.addEventListener("DOMContentLoaded", () => {
     CONCRETE_GRADES.forEach(grade => {
       const details = CONCRETE_DETAILS[grade] || { desc: "Specialized concrete mix", useCase: "Structural applications" };
       const isPopular = grade === "M20" || grade === "M25";
+      const gradeClass = grade === "M20" ? "grade-card-m20" : (grade === "M25" ? "grade-card-m25" : "secondary-grade-card");
 
       const cardHTML = `
-        <div class="grade-card">
+        <div class="grade-card ${gradeClass}">
           ${isPopular ? '<div class="popular-badge">Most Popular</div>' : ''}
           <div class="grade-card-header">
             <h3 class="grade-title">${grade}</h3>
@@ -100,6 +101,19 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
     `;
     catalogGrid.insertAdjacentHTML("beforeend", designMixCard);
+  }
+
+  // Toggle More Grades button on mobile
+  const toggleMoreBtn = document.getElementById("toggle-more-grades-btn");
+  const moreGradesText = document.getElementById("more-grades-text");
+  if (toggleMoreBtn && catalogGrid) {
+    toggleMoreBtn.addEventListener("click", () => {
+      catalogGrid.classList.toggle("expanded");
+      const isExpanded = catalogGrid.classList.contains("expanded");
+      if (moreGradesText) {
+        moreGradesText.textContent = isExpanded ? "Show Less Grades" : "View All Grades";
+      }
+    });
   }
 
   // 4. Populate Grade Select options in Order Modal
