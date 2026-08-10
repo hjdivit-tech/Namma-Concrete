@@ -129,6 +129,42 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+  // ============================================================
+  // Language Toggle (EN / KN) — RMC vs Conventional section
+  // Paste this inside your existing DOMContentLoaded callback in
+  // Script.js — right after the "Toggle More Comparison Points on
+  // mobile (Know More)" block works well. Does not touch that logic.
+  // ============================================================
+
+  const rmcSection = document.getElementById("rmc-vs-conventional");
+  const langToggleEn = document.getElementById("lang-toggle-en");
+  const langToggleKn = document.getElementById("lang-toggle-kn");
+
+  if (rmcSection && langToggleEn && langToggleKn) {
+    const applyLang = (lang) => {
+      const nodes = rmcSection.querySelectorAll("[data-en]");
+      nodes.forEach((el) => {
+        const value = el.getAttribute(lang === "en" ? "data-en" : "data-kn");
+        if (value === null) return;
+        // Values containing markup (e.g. the h2's nested <span class="text-primary">)
+        // need innerHTML; everything else is plain text.
+        if (value.indexOf("<") !== -1) {
+          el.innerHTML = value;
+        } else {
+          el.textContent = value;
+        }
+      });
+
+      langToggleEn.classList.toggle("active", lang === "en");
+      langToggleKn.classList.toggle("active", lang === "kn");
+    };
+
+    langToggleEn.addEventListener("click", () => applyLang("en"));
+    langToggleKn.addEventListener("click", () => applyLang("kn"));
+
+    // Default language on load
+    applyLang("en");
+  }
 
   // 4. Populate Grade Select options in Order Modal
   const orderGradeSelect = document.getElementById("order-grade");

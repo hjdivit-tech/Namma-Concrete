@@ -358,6 +358,7 @@ h6 {
   .logo-img {
     height: 40px;
   }
+
   .navbar .open-order-modal {
     padding: 0.4rem 0.55rem;
     font-size: 0.7rem;
@@ -438,28 +439,49 @@ h6 {
 }
 
 /* Animations for each slide based on delays */
-.bg-slide:nth-child(1) { animation-delay: 0s; }
-.bg-slide:nth-child(2) { animation-delay: 4s; }
-.bg-slide:nth-child(3) { animation-delay: 8s; }
-.bg-slide:nth-child(4) { animation-delay: 12s; }
-.bg-slide:nth-child(5) { animation-delay: 16s; }
-.bg-slide:nth-child(6) { animation-delay: 20s; }
+.bg-slide:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.bg-slide:nth-child(2) {
+  animation-delay: 4s;
+}
+
+.bg-slide:nth-child(3) {
+  animation-delay: 8s;
+}
+
+.bg-slide:nth-child(4) {
+  animation-delay: 12s;
+}
+
+.bg-slide:nth-child(5) {
+  animation-delay: 16s;
+}
+
+.bg-slide:nth-child(6) {
+  animation-delay: 20s;
+}
 
 @keyframes bg-zoom-fade {
   0% {
     opacity: 0;
     transform: scale(1);
   }
+
   4% {
     opacity: 1;
   }
+
   16% {
     opacity: 1;
   }
+
   20% {
     opacity: 0;
     transform: scale(1.1);
   }
+
   100% {
     opacity: 0;
     transform: scale(1.1);
@@ -834,7 +856,7 @@ h6 {
   transition: transform 0.3s ease;
 }
 
-.catalog-grid.expanded + .catalog-more-container #more-grades-icon {
+.catalog-grid.expanded+.catalog-more-container #more-grades-icon {
   transform: rotate(180deg);
 }
 
@@ -1285,12 +1307,15 @@ h6 {
 }
 
 @media (min-width: 768px) {
-.footer-top {
+  .footer-top {
     flex-direction: row;
-    justify-content: center; /* Center align items */
+    justify-content: center;
+    /* Center align items */
   }
+
   .footer-top .social-links {
-    margin: 0 auto; /* Center the social icons */
+    margin: 0 auto;
+    /* Center the social icons */
   }
 }
 
@@ -1831,7 +1856,7 @@ h6 {
   transition: transform 0.3s ease;
 }
 
-.comparison-grid.expanded + .comp-more-container #comp-more-icon {
+.comparison-grid.expanded+.comp-more-container #comp-more-icon {
   transform: rotate(180deg);
 }
 
@@ -1921,4 +1946,55 @@ h6 {
   color: #4B5563;
   line-height: 1.5;
   margin-bottom: 0.35rem;
+}
+
+/* ============================================================
+   Language Toggle (EN / KN) — RMC vs Conventional section
+   Append this to the end of Styles.css
+   ============================================================ */
+
+.lang-toggle-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-dark);
+  border-radius: 999px;
+  padding: 4px;
+}
+
+.lang-toggle-option {
+  background: transparent;
+  border: none;
+  color: #9CA3AF;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.4rem 1.2rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.lang-toggle-option:hover:not(.active) {
+  color: var(--text-light);
+}
+
+.lang-toggle-option.active {
+  background: var(--primary);
+  color: var(--secondary);
+  box-shadow: 0 2px 10px rgba(245, 158, 11, 0.35);
+
+  .rmc-vs-section .section-subtitle {
+    color: var(--text-light);
+    font-weight: 600;
+  }
 }
