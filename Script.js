@@ -233,11 +233,45 @@ document.addEventListener("DOMContentLoaded", () => {
   if (closeSuccessBtn) closeSuccessBtn.addEventListener("click", closeModal);
 
   // Handle Order Form Submit
+  const NAMMA_WHATSAPP_NUMBER = "919844872892"; // Call center number for order alerts
+
+  function formatDateForMessage(isoDate) {
+    if (!isoDate) return "Not specified";
+    const parts = isoDate.split("-");
+    if (parts.length !== 3) return isoDate;
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const [year, month, day] = parts;
+    return `${parseInt(day, 10)} ${months[parseInt(month, 10) - 1]} ${year}`;
+  }
+
+  function sendOrderToWhatsApp() {
+    const grade = orderGradeSelect ? orderGradeSelect.value : "Not specified";
+    const qty = document.getElementById("order-qty")?.value || "Not specified";
+    const name = document.getElementById("customer-name")?.value || "Not specified";
+    const phone = document.getElementById("customer-phone")?.value || "Not specified";
+    const date = formatDateForMessage(document.getElementById("delivery-date")?.value);
+    const address = document.getElementById("delivery-addr")?.value || "Not specified";
+
+    const message =
+      `*New Concrete Order - Namma Concrete*\n\n` +
+      `*Name:* ${name}\n` +
+      `*Phone:* ${phone}\n` +
+      `*Grade:* ${grade}\n` +
+      `*Quantity:* ${qty} m³\n` +
+      `*Preferred Date:* ${date}\n` +
+      `*Site Address:* ${address}`;
+
+    const waUrl = `https://wa.me/${NAMMA_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    window.open(waUrl, "_blank", "noopener,noreferrer");
+  }
+
   if (orderForm) {
     orderForm.addEventListener("submit", (e) => {
       e.preventDefault();
       const submitBtn = document.getElementById("submit-order-btn");
       if (submitBtn) submitBtn.disabled = true;
+
+      sendOrderToWhatsApp();
 
       setTimeout(() => {
         if (orderForm) orderForm.classList.add("hidden");
